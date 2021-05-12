@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <!-- <script src="http://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <title>Twitter Extension</title>
+  </head>
+  <body>
+    <div id="menu" class="nav">
+      <a href="#" class="close" onclick="closeSlideMenu()">
+        <i class="fas fa-times"></i>
+      </a>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Settings</a>
+      <a href="#">Contact</a>
+    </div>
+    <span class="slide ml-3">
+      <a href="#" onclick="openSlideMenu()">
+        <i class="fas fa-bars"></i>
+      </a>
+    </span>
+
+    <div class="nav-bar">
+      <div>
+        <span id="displayName"></span>
+        <img id="profilepic" />
+      </div>
+      <div id="scheduleBtn">
+        <a href="/logout">Logout</a>
+        <button class="btn btn-danger" id="revokeAccess">
+          Revoke Twitter Access
+        </button>
+      </div>
+    </div>
+    <div class="container-fluid" id="dashboard">
+      <!-- Scheduled Task Div -->
+      <div>
+        <div class="container-div scheduledtask">
+          <div class="title">
+            <h3>Scheduled Tasks</h3>
+          </div>
+
+          <table id="tables">
+            <tr id="tr-row"></tr>
+          </table>
+
+          <section id="scheduledtask"></section>
+        </div>
+      </div>
+
+      <!-- Tweet Form -->
+      <div class="tweetDiv">
+        <div id="maintitle">
+          <h5 id="notification">Make a Tweet!</h5>
+        </div>
+        <form class="container-div tweetForm">
+          <div class="forms-row">
+            <i class="icons-m fas fa-pencil-alt"></i>
+            <input
+              class="statusbox"
+              type="text"
+              id="status"
+              placeholder="Your tweet..."
+            />
+          </div>
+
+          <div class="forms-row" id="hashtagsbox">
+            <i class="icons-m fas fa-pencil-alt"></i>
+
+            <textarea
+              id="tweetText"
+              placeholder="Make a Tweet"
+              rows="7"
+              cols="30"
+              oninput="checkCharacterLimit()"
+              required
+            ></textarea>
+          </div>
+
+          <div class="forms-row">
+            <i class="icons-m fas fa-stopwatch"></i>
+            <input
+              id="tweetInterval"
+              placeholder="Interval(minutes)"
+              type="number"
+              min="1"
+              required
+            />
+          </div>
+          <p><img id="output" width="200" alt="Tweet Image" /></p>
+          <div class="forms-row">
+            <i class="icons-m fas fa-upload"></i>
+            <label for="file-upload" class="custom-file-upload">
+              <i class="fa fa-cloud-upload"></i> Upload Media
+            </label>
+            <input
+              class="form-control-file mb-3"
+              type="file"
+              name="media"
+              id="file-upload"
+              onchange="loadFile(event)"
+            />
+
+            <!-- <input class="form-control-file mb-3" type="file" id="media" name="media"/> -->
+          </div>
+
+          <button class="scheduleBtn" id="scheduleButton">Schedule</button>
+        </form>
+      </div>
+
+      <!-- Hashtag Div -->
+      <div class="container-div">
+        <div class="d-flex align-items-center justify-content-start">
+          <input
+            type="checkbox"
+            id="automatic"
+            name="automatic"
+            value="automatic"
+            style="margin-left: 10px; margin-right: 15px; width: 15px"
+          />
+          <label for="automatic" class="text-warning font-weight-bold"
+            >Automatically Select Top HashTags<br />
+            <mark
+              >(In this feature, the bot will automatically select the latest
+              hastags<br />
+              (refreshes after 15 minutes) in your region and adds them to your
+              tweet</mark
+            >
+          </label>
+        </div>
+        <div class="title">
+          <h3>Hash Tags</h3>
+        </div>
+        <div class="dropDown" onchange="callHashtag()">
+          <select
+            id="dropDown"
+            style="background-color: #bbdefb; color: black"
+            class="form-control"
+          ></select>
+        </div>
+        <section class="hashtags">
+          <p id="result"></p>
+        </section>
+      </div>
+
+      <main style="display: flex">
+        <section class="form"></section>
+        <div class="flex-gap">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <div class="flex-gap">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div></div>
+      </main>
+    </div>
+
+    <script src="./popup.js"></script>
+    <script>
+      function openSlideMenu() {
+        document.getElementById('menu').style.width = '250px';
+        document.getElementById('content').style.marginLeft = '250px';
+      }
+      function closeSlideMenu() {
+        document.getElementById('menu').style.width = '0';
+        document.getElementById('content').style.marginLeft = '0';
+      }
+    </script>
+  </body>
+</html>
